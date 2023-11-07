@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script></script>
+<input type="file" id="input" accept="image/*" multiple="true">
+<script src="./dist/umd.js"></script>
+<script>
+
+    let imgWithWaterMark = new $ImgWithWaterMark()
+    let input = document.body.querySelector('#input')
+    input.onchange = async (e) => {
+        let showImg = []
+        let length = e.target.files.length
+        for (let i = 0; i < length; i++) {
+            let item = e.target.files[i]
+            showImg.push(await imgWithWaterMark.setWaterMark({ img: item, text: '你的水印内容' }))
+        }
+        showImg.forEach((img) => {
+            let dom = document.createElement('img')
+            dom.src = img
+            document.body.appendChild(dom)
+            dom.style.width = '200px'
+            dom.style.height = 'auto'
+        })
+    }
+</script>
+
+<body>
+
+</body>
+
+</html>
